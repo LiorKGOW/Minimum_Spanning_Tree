@@ -13,20 +13,25 @@ typedef struct treeNode{
 
 class Union
 {
+	// With Path Compression & Union By Size
+
 private:
 	
 	vector<treeNode> arr;
+	int size;
 
 public:
 
 	Union(int n);
 
-	void MakeSet(int ver);
-	int Find(int ver);
+	void MakeSet(int vertex);
+	int Find(int vertex);
 	void UnionVertices(int ver1, int ver2);
 
 	// Getter
 
 	// Setter
+
+	void printUnion(); //TODO: implement printUnion
 };
 
