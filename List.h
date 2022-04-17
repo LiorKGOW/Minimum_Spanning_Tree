@@ -4,8 +4,8 @@
 class List
 {
 private:
-	Node* head;
-	Node* tail;
+	Node *head;
+	Node *tail;
 
 public:
 	List();
@@ -16,18 +16,18 @@ public:
 	void removeFromList(int val);
 	bool isInList(int val);
 
+	void printList(int graphVertex);
+	void printListBack();
+	List *duplicateList();
+
 	// Getters:
 
-	Node* getHead();
-	Node* getTail();
+	Node *getHead();
+	Node *getTail();
 
 	// Setters:
 
 	void insertToHead(int vertex, int weight);
 	void insertToTail(int vertex, int weight);
-
-	void printList(int graphVertex);
-	void printListBack();
-	List* duplicateList();
+	void printList();
 };
-
