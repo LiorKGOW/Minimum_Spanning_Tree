@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node:: Node(int ver, int wei, Node* nxt = nullptr, Node* prv = nullptr) {
+Node:: Node(int ver, int wei, Node* nxt , Node* prv ) {
 
 	this->vertex = ver;
 	this->weight = wei;
@@ -53,3 +53,5 @@ void Node::setPrev(Node* prv) {
 
 	this->prev = prv;
 }
+
+/*********************************************************************/

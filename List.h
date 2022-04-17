@@ -25,5 +25,9 @@ public:
 
 	void insertToHead(int vertex, int weight);
 	void insertToTail(int vertex, int weight);
+
+	void printList(int graphVertex);
+	void printListBack();
+	List* duplicateList();
 };
 
