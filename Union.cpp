@@ -18,7 +18,6 @@ Union::Union(int n)
 
 void Union::MakeSet(int vertex)
 {
-
 	arr.push_back(treeNode{vertex, vertex, 1});
 }
 
