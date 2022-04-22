@@ -8,7 +8,7 @@ Data Structures Used:
 - Two Way Linked List
 - Graph
 - Union-Find (Disjoint Set)
-- Priority Queue
+- Priority Queue (Min Heap)
 
 Algorithms Used:
 
