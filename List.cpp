@@ -44,38 +44,43 @@ bool List::isEmpty()
 
 /*********************************************************************/
 
-bool List::isInList(int vertex)
+void List::insertToHead(int vertex, int weight)
 {
-	Node *curr = this->head;
+	Node *newHead = new Node(vertex, weight);
 
-	while (curr != nullptr)
+	if (isEmpty())
 	{
-
-		if (curr->vertex == vertex)
-		{
-
-			return true;
-		}
-
-		curr = curr->next;
+		this->head = this->tail = newHead;
 	}
 
-	return false;
+	else
+	{
+		newHead->next = this->head;
+		this->head->prev = newHead;
+
+		this->head = newHead;
+	}
 }
 
 /*********************************************************************/
-// Getters:
 
-Node *List::getHead()
+void List::insertToTail(int vertex, int weight)
 {
 
-	return this->head;
-}
+	Node *newTail = new Node(vertex, weight);
 
-Node *List::getTail()
-{
+	if (isEmpty())
+	{
+		this->head = this->tail = newTail;
+	}
 
-	return this->tail;
+	else
+	{
+		newTail->prev = this->tail;
+		this->tail->next = newTail;
+
+		this->tail = newTail;
+	}
 }
 
 /*********************************************************************/
@@ -94,8 +99,8 @@ void List::removeFromList(int val)
 			this->head = this->tail = nullptr;
 		}
 		else // more then one Node in the List
-		{ 
-			Node* newHead = head->next;
+		{
+			Node *newHead = head->next;
 
 			this->head->next->prev = nullptr;
 			delete this->head;
@@ -133,45 +138,23 @@ void List::removeFromList(int val)
 
 /*********************************************************************/
 
-void List::insertToHead(int vertex, int weight)
+bool List::isInList(int vertex)
 {
-	Node *newHead = new Node(vertex, weight);
+	Node *curr = this->head;
 
-	if (isEmpty())
-	{
-		this->head = this->tail = newHead;
-	}
-
-	else
-	{
-		newHead->next = this->head;
-		this->head->prev = newHead;
-
-		this->head = newHead;
-	}
-}
-
-/*********************************************************************/
-
-void List::insertToTail(int vertex, int weight)
-{
-
-	Node *newTail = new Node(vertex, weight);
-
-	if (isEmpty())
+	while (curr != nullptr)
 	{
 
-		this->head = this->tail = newTail;
+		if (curr->vertex == vertex)
+		{
+
+			return true;
+		}
+
+		curr = curr->next;
 	}
 
-	else
-	{
-
-		newTail->prev = this->tail;
-		this->tail->next = newTail;
-
-		this->tail = newTail;
-	}
+	return false;
 }
 
 /*********************************************************************/
@@ -182,7 +165,7 @@ void List::printList(int graphVertex)
 
 	while (curr != nullptr)
 	{
-		std::cout <<"("<< graphVertex<<"," << curr->vertex+1 << "): " << curr->weight << ", ";
+		std::cout << "(" << graphVertex << "," << curr->vertex + 1 << "): " << curr->weight << ", ";
 
 		curr = curr->next;
 	}
@@ -192,7 +175,7 @@ void List::printList(int graphVertex)
 
 void List::printListBack()
 {
-	Node* curr = this->tail;
+	Node *curr = this->tail;
 
 	while (curr != nullptr)
 	{
@@ -204,18 +187,33 @@ void List::printListBack()
 
 /*********************************************************************/
 
-List* List::duplicateList()
+List *List::duplicateList()
 {
-	List* duplicate = new List();
-	Node* curr = this->head;
+	List *duplicate = new List();
+	Node *curr = this->head;
 
 	while (curr != nullptr)
 	{
-		duplicate->insertToTail(curr->vertex , curr->weight);
+		duplicate->insertToTail(curr->vertex, curr->weight);
 		curr = curr->next;
 	}
-	
+
 	return duplicate;
+}
+
+/*********************************************************************/
+// Getters:
+
+Node *List::getHead()
+{
+
+	return this->head;
+}
+
+Node *List::getTail()
+{
+
+	return this->tail;
 }
 
 /*********************************************************************/
