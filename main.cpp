@@ -13,7 +13,22 @@ void main()
 
  /*********************************************************************/
 
+    Graph* g = new Graph(6);
 
+    g->AddEdge(1, 2, 2);
+    g->AddEdge(1, 3, 3);
+    g->AddEdge(1, 4, 4);
+    g->AddEdge(1, 5, 5);
+
+    g->printGraph();
+
+    /*cout << "\n\n";
+
+    int weight;
+
+    Graph* result = Kruskal(g, weight);*/
+
+    // result->printGraph();
 
     // Kruskal:
 

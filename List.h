@@ -29,8 +29,6 @@ public:
 	Node *getHead();
 	Node *getTail();
 
-	void insertToHead(int vertex, int weight);
-	void insertToTail(int vertex, int weight);
 	void printList();
   
   // Setters:
