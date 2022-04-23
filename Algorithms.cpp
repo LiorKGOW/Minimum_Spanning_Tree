@@ -43,7 +43,7 @@ Graph *Kruskal(Graph *g, int &totalWeight)
 	int numOfEdges = 0;
 	// if result has n-1 edges, We can stop the loop (We have found the tree).
 
-	for (int i = 0; i < vecEdge.size() && numOfEdges < g->get_Num_of_Vertices() - 1; i++)
+	for (int i = 0; i < vecEdge.size() && numOfEdges < (g->get_Num_of_Vertices() - 1) ; i++)
 	{
 		// vecEdge[i] // (u,v)
 
