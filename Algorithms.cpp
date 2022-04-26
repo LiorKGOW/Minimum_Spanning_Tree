@@ -95,7 +95,6 @@ void QuickSort(vector<edge> &edges, int begin, int end)
 
 	if (begin < end)
 	{
-
 		pivot = Partition(edges, begin, end);
 
 		QuickSort(edges, begin, pivot - 1);
@@ -132,6 +131,76 @@ void swap(edge &edge1, edge &edge2)
 	edge t = edge1;
 	edge1 = edge2;
 	edge2 = t;
+}
+
+/*********************************************************************/
+
+Graph* Prim(Graph* g, int& totalWeight) {
+
+	vector<int> min;       // in terms of 0 - n-1
+	vector<int> parents;   // in terms of 0 - n-1
+	vector<bool> InTree;   // in terms of 0 - n-1
+
+	totalWeight = 0;
+	Graph* res = new Graph(g->get_Num_of_Vertices());  // the found tree graph
+
+	min.reserve(g->get_Num_of_Vertices());
+	parents.reserve(g->get_Num_of_Vertices());
+
+	for (int i = 0; i < g->get_Num_of_Vertices(); i++) {
+
+		min.push_back(INFINITY);
+		parents.push_back(NULLPARENT);
+		InTree.push_back(false);
+	}
+
+	min[0] = 0;
+	InTree[0] = true;
+
+	MinHeap q(min);
+
+	// Main Loop:
+
+	while (!q.isEmpty()) {
+
+		heapNode u = q.deleteMin();
+		InTree[u.data] = true;
+
+		List* adjList = g->GetAdjList(u.data + 1);  // need to get in terms of 1 - n
+
+		Node* curr = adjList->getHead();
+
+		while (curr != nullptr) {
+
+			int v = curr->getVertex();  // in terms of 0 - n-1
+									
+			if (!InTree[v] && curr->getWeight() < min[v]) {
+
+				min[v] = curr->getWeight();
+				parents[v] = u.data;         //update v's parent to be u
+				q.deceaseKey(v, min[v]);
+			}
+
+			curr = curr->getNext();
+		}
+
+		delete adjList;
+	}
+
+	buildGraphFromPMin(res, min, parents, totalWeight);
+
+	return res;
+}
+
+/*********************************************************************/
+
+void buildGraphFromPMin(Graph* res, vector<int> min, vector<int> parents, int& totalWeight) {
+
+	for (int i = 1; i < parents.size(); i++)
+	{
+		res->AddEdge(parents[i] + 1, i + 1, min[i]);
+		totalWeight += min[i];
+	}
 }
 
 /*********************************************************************/

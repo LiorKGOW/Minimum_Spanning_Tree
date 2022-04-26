@@ -2,7 +2,9 @@
 #include "DataStructuresForHeap.h"
 #include <vector>
 #include <math.h>
+#include <iostream>
 
+#define NOTINHEAP -1
 #define INFINITY INT32_MAX
 
 using namespace std;
@@ -18,14 +20,15 @@ class MinHeap
 private:
 	
 	vector<heapNode> heap;
+	vector<int> vertexToPlace;  //each vertex has it's own place in the heap
 
 	// heapSize == heap.size()
 
 public:
 
-	MinHeap(vector<weightedEdge> edges);  	// נקבל ב ctor את גודל המערך
+	MinHeap(vector<int> min);  	// נקבל ב ctor את גודל המערך
 
-	void build(vector<weightedEdge> edges);
+	void build(vector<int> min);
 	void fixHeap(int index);
 	heapNode deleteMin();
 	bool isEmpty();

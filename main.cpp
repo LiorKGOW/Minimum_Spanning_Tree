@@ -8,58 +8,66 @@
 
 void main()
 {
-    // Algorithms checks:
 
 
-    // MinHeap:
 
-    Graph* g = new Graph(9);
+/*********************************************************************/
 
-    g->AddEdge(1, 4, 1);
+  // Algorithms checks:
+
+  // Prim
+
+    /*Graph* g = new Graph(7);*/
+    
+    // g1:
+
+    /*g->AddEdge(1, 4, 1);
     g->AddEdge(4, 3, 0);
     g->AddEdge(2, 3, -2);
     g->AddEdge(1, 2, 3);
 
     g->AddEdge(2, 4, -1);
-    g->AddEdge(9, 8, -10);
-    g->AddEdge(8, 5, 5);
     g->AddEdge(4, 5, 6);
-    g->AddEdge(9, 7, 7);
-    g->AddEdge(7, 8, 9);
-    g->AddEdge(2, 6, 4);
+    g->AddEdge(7, 1, -3);
+    g->AddEdge(2, 6, 4);*/
 
-    
-    g->printGraph();
+    // g2:
 
-    vector <weightedEdge>edges = g->getWeightedEdgesVector();
+    /*g->AddEdge(1, 4, 1);
+    g->AddEdge(4, 3, 0);
+    g->AddEdge(2, 3, -2);
 
-    MinHeap Chester = MinHeap(edges);
+    g->AddEdge(4, 5, 6);
+    g->AddEdge(7, 1, -3);
+    g->AddEdge(2, 6, 4);*/
 
-    Chester.deceaseKey(3, 2);
+    // g3:
 
-    heapNode drake = Chester.deleteMin();
-
-    cout << 1 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
-
-    Chester.deceaseKey(2, -3);
-
-    drake = Chester.deleteMin();
-
-    cout << 2 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
-
-    drake = Chester.deleteMin();
-
-    cout << 3 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
-
-    cout << "done";
-
-    // weightedEdge = {int ver1, int ver2, int weight}
+    //g->AddEdge(1, 5, 0);
+    //g->AddEdge(4, 5, 1);
+    //g->AddEdge(3, 5, -1);
+    //g->AddEdge(2, 5, 2);
+    //g->AddEdge(6, 5, 4);
+    //g->AddEdge(7, 5, 3);
+    //g->AddEdge(4, 3, -2);
+    //g->AddEdge(4, 6, -3);
+    //g->AddEdge(7, 1, 5);
+    //g->AddEdge(2, 3, 1);
 
 
-    
+    //g->printGraph();
+    //cout << "................................................\n\n\n";
+
+    //int weight = 0;
+    //Graph* result = Prim(g, weight);
+    //cout << weight << "\n\n" << endl;
+
+    //result->printGraph();
+
+    // check visit in Prim
+
 
  /*********************************************************************/
-
 
     // Kruskal:
 
@@ -156,7 +164,6 @@ void main()
 
     /*********************************************************************/
 
-
     // Quick Sort:
 
     /* vector<edge> vecEdge;
@@ -195,7 +202,55 @@ void main()
 
 
     /*********************************************************************/
+    /*********************************************************************/
 
+// Data Structures:
+
+// MinHeap:
+
+    /*Graph* g = new Graph(7);
+
+    g->AddEdge(1, 4, 1);
+    g->AddEdge(4, 3, 0);
+    g->AddEdge(2, 3, -2);
+    g->AddEdge(1, 2, 3);
+
+    g->AddEdge(2, 4, -1);
+    g->AddEdge(4, 5, 6);
+    g->AddEdge(7, 1, -3);
+    g->AddEdge(2, 6, 4);
+
+
+    g->printGraph();
+
+    cout << "................................................\n\n\n";*/
+
+    //vector <weightedEdge>edges = g->getWeightedEdgesVector();
+
+    //MinHeap Chester = MinHeap(edges);
+
+    //Chester.deceaseKey(3, 2);
+
+    //heapNode drake = Chester.deleteMin();
+
+    //cout << 1 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
+
+    //Chester.deceaseKey(2, -3);
+
+    //drake = Chester.deleteMin();
+
+    //cout << 2 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
+
+    //drake = Chester.deleteMin();
+
+    //cout << 3 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
+
+    //cout << "done";
+
+    //// weightedEdge = {int ver1, int ver2, int weight}
+
+
+    /*********************************************************************/
 
     // Union Checks:
 
@@ -219,7 +274,6 @@ void main()
     //mshadows.printUnion();
 
     /*********************************************************************/
-
   
     // Graph Check:
 
@@ -302,7 +356,6 @@ void main()
 
     /*********************************************************************/
 
-  
     // List checks:
 
     //List lst;
