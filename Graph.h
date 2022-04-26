@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "List.h"
+#include "Weighted_Edge.h"
 #include <vector>
 
 using namespace std;
@@ -23,6 +24,9 @@ private:
 	vector<int> colors; // in use in DFS functions
 	bool colorsIsWhite;
 
+	vector<weightedEdge> edges;   // The vector contains weighted edges with vertices logic of (1 - n)
+	// logSize == edges.size() == Num_of_Edges
+
 public:
 	Graph(int n); // Constructor
 	~Graph();	  // Destructor
@@ -39,11 +43,15 @@ public:
 	void visit(int vertex);
 	bool isConnectedGraph();
 
+	// 
+	vector<weightedEdge> getWeightedEdgesVector();
+
 	void printGraph(); // in case a vertex doesn't have edges attached to it, printGraph prints an empty line.
 
 	// Getters:
 
 	int get_Num_of_Vertices();
+	int get_Num_of_Edges();
 
 	// Setters:
 };
