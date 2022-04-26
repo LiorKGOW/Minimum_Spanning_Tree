@@ -1,6 +1,7 @@
 #pragma once
 #include "Graph.h"
 #include "Union.h"
+#include "MinHeap.h"
 #include "Algorithms.h"
 #include <vector>
 #include <iostream>
@@ -10,19 +11,91 @@ void main()
     // Algorithms checks:
 
 
+    // MinHeap:
+
+    Graph* g = new Graph(9);
+
+    g->AddEdge(1, 4, 1);
+    g->AddEdge(4, 3, 0);
+    g->AddEdge(2, 3, -2);
+    g->AddEdge(1, 2, 3);
+
+    g->AddEdge(2, 4, -1);
+    g->AddEdge(9, 8, -10);
+    g->AddEdge(8, 5, 5);
+    g->AddEdge(4, 5, 6);
+    g->AddEdge(9, 7, 7);
+    g->AddEdge(7, 8, 9);
+    g->AddEdge(2, 6, 4);
+
+    
+    g->printGraph();
+
+    vector <weightedEdge>edges = g->getWeightedEdgesVector();
+
+    MinHeap Chester = MinHeap(edges);
+
+    Chester.deceaseKey(3, 2);
+
+    heapNode drake = Chester.deleteMin();
+
+    cout << 1 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
+
+    Chester.deceaseKey(2, -3);
+
+    drake = Chester.deleteMin();
+
+    cout << 2 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
+
+    drake = Chester.deleteMin();
+
+    cout << 3 << "  " << drake.data.ver1 << drake.data.ver2 << drake.weight << endl;
+
+    cout << "done";
+
+    // weightedEdge = {int ver1, int ver2, int weight}
+
+
+    
 
  /*********************************************************************/
 
-    Graph* g = new Graph(6);
 
-    g->AddEdge(1, 2, 2);
+    // Kruskal:
+
+    // 3
+
+    /*Graph* g = new Graph(6);
+
+    g->AddEdge(6, 2, 2);
+    g->AddEdge(1, 3, 3);
+    g->AddEdge(2, 4, 4);
+    g->AddEdge(1, 5, 5);
+    g->AddEdge(6, 1, 2);
+    g->AddEdge(5, 3, 3);
+    g->AddEdge(2, 5, 4);
+    g->AddEdge(3, 2, 5);
+
+    g->printGraph();
+
+    cout << "\n\n";
+
+    int weight;
+
+    Graph* result = Kruskal(g, weight);
+
+    result->printGraph();*/
+
+    // 3 Unconnected graph
+
+    /*g->AddEdge(1, 2, 2);
     g->AddEdge(1, 3, 3);
     g->AddEdge(1, 4, 4);
     g->AddEdge(1, 5, 5);
 
     g->printGraph();
 
-    /*cout << "\n\n";
+    cout << "\n\n";
 
     int weight;
 
@@ -30,7 +103,7 @@ void main()
 
     // result->printGraph();
 
-    // Kruskal:
+    // 2
 
     /*Graph* g = new Graph(5);
 
