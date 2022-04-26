@@ -67,8 +67,11 @@ void Graph::AddEdge(int ver1, int ver2, int weight)
 {
 	if (!IsAdjacent(ver1, ver2))
 	{
-
 		adjList[ver1 - 1]->insertToTail(ver2 - 1, weight);
+
+		weightedEdge e = { ver1, ver2, weight };
+
+		edges.push_back(e);
 
 		AddInvertedEdge(ver2, ver1, weight);
 	}
@@ -84,8 +87,9 @@ void Graph::AddInvertedEdge(int ver2, int ver1, int weight)
 {
 	if (!IsAdjacent(ver2, ver1))
 	{
-
 		adjList[ver2 - 1]->insertToTail(ver1 - 1, weight);
+
+		// no need to add to the vector, because we want the vector to conatin only NoDirection edges.
 	}
 
 	// else, the inverted edge is already in the graph -> do nothing.
@@ -107,6 +111,20 @@ void Graph::RemoveEdge(int ver1, int ver2)
 	{
 		adjList[ver1 - 1]->removeFromList(ver2 - 1);
 		adjList[ver2 - 1]->removeFromList(ver1 - 1);
+
+		// remove from edges:
+
+		for (int i = 0; i < edges.size(); i++) {
+
+			if ((edges[i].ver1 == ver1 && edges[i].ver2 == ver2) || (edges[i].ver1 == ver2 && edges[i].ver2 == ver1)) {
+
+				std::swap(edges[i], edges[edges.size() - 1]);
+
+				edges.pop_back();
+
+				break;
+			}
+		}
 	}
 }
 
@@ -178,6 +196,15 @@ bool Graph::isConnectedGraph()
 }
 
 /*********************************************************************/
+
+vector<weightedEdge> Graph::getWeightedEdgesVector() {
+
+	// IMPORTANT: NO DUP EDGES!!
+
+	return this->edges;
+}
+
+/*********************************************************************/
 /*
  * in case a vertex doesn't have edges attached to it, printGraph prints an empty line.
  */
@@ -191,9 +218,17 @@ void Graph::printGraph()
 }
 
 /*********************************************************************/
+//	Getters:
+/*********************************************************************/
+
 int Graph::get_Num_of_Vertices()
 {
 	return this->Num_of_Vertices;
+}
+
+int Graph::get_Num_of_Edges() {
+
+	return this->edges.size();
 }
 
 /*********************************************************************/

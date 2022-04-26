@@ -6,6 +6,8 @@ Graph *Kruskal(Graph *g, int &totalWeight)
 
 	if (!g->isConnectedGraph())
 	{
+		cout << "ERROR! The graph is not connected" << endl;
+
 		return nullptr;
 		// TODO: Print Error? Unconnected Graph
 	}
