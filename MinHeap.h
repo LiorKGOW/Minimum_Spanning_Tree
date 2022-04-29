@@ -9,7 +9,6 @@
 
 using namespace std;
 
-// weightedEdge = {int ver1, int ver2, int weight}
 // graphEdge    = {int ver1, int ver2}
 // heapNode     = {graphEdge data, int weight}
 
