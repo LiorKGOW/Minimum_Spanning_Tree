@@ -27,6 +27,8 @@ private:
 	vector<weightedEdge> edges;   // The vector contains weighted edges with vertices logic of (1 - n)
 	// logSize == edges.size() == Num_of_Edges
 
+	// bool edgesIsSorted;
+
 public:
 	Graph(int n); // Constructor
 	~Graph();	  // Destructor

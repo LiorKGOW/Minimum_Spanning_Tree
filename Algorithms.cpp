@@ -134,7 +134,6 @@ void swap(edge &edge1, edge &edge2)
 }
 
 /*********************************************************************/
-
 Graph* Prim(Graph* g, int& totalWeight) {
 
 	vector<int> min;       // in terms of 0 - n-1
@@ -193,7 +192,6 @@ Graph* Prim(Graph* g, int& totalWeight) {
 }
 
 /*********************************************************************/
-
 void buildGraphFromPMin(Graph* res, vector<int> min, vector<int> parents, int& totalWeight) {
 
 	for (int i = 1; i < parents.size(); i++)
