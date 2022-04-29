@@ -13,7 +13,7 @@ typedef struct graphEdge {
 
 typedef struct heapNode {
 
-	graphEdge data;  // {v1, v2}
+	int data;  // vertex
 	int weight;  // key
 
 }heapNode;

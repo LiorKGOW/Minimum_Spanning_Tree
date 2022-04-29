@@ -1,28 +1,30 @@
 #include "MinHeap.h"
 
 /*********************************************************************/
-MinHeap::MinHeap(vector<weightedEdge> edges) {
+MinHeap::MinHeap(vector<int> min) {
 
-	build(edges);
+	build(min);
 }
 
 /*********************************************************************/
 /*
  * In this bulild function we will use Floyd Algorithm to build the Heap
  */
-void MinHeap::build(vector<weightedEdge> edges) {
+void MinHeap::build(vector<int> min) {
 
-	heap.reserve(edges.capacity());
+	heap.reserve(min.capacity());
+	vertexToPlace.reserve(min.capacity());
 
-	for (int i = 0; i < edges.size(); i++) {
-
-		graphEdge e = { edges[i].ver1, edges[i].ver2 };
-		heapNode tmp = { e, edges[i].weight };
-
+	for (int i = 0; i < min.size(); i++) {
+							// weight of vertex i = "infinity" or 0 in prim's algorithms
+		heapNode tmp = { i, min[i] };
+					// ver   Key
 		heap.push_back(tmp);
+
+		vertexToPlace.push_back(i);
 	}
 
-	for (int i = edges.size() / 2 - 1; i >= 0; i--) {
+	for (int i = min.size() / 2 - 1; i >= 0; i--) {
 
 		fixHeap(i);
 	}
@@ -46,11 +48,15 @@ void MinHeap::fixHeap(int index) {
 		else
 			indexToCheck = right;
 		if (heap[index].weight > heap[indexToCheck].weight)
-		{
+		{					//vertex
+			vertexToPlace[heap[index].data] = indexToCheck;
+			vertexToPlace[heap[indexToCheck].data] = index;
+
+
 			tmp = heap[index];
 			heap[index] = heap[indexToCheck];
 			heap[indexToCheck] = tmp;
-
+		
 			fixHeap(indexToCheck);
 		}
 	}
@@ -58,6 +64,10 @@ void MinHeap::fixHeap(int index) {
 
 		if (heap[index].weight > heap[left].weight)
 		{
+								// vertex
+			vertexToPlace[heap[index].data] = left;
+			vertexToPlace[heap[left].data] = index;
+
 			tmp = heap[index];
 			heap[index] = heap[left];
 			heap[left] = tmp;
@@ -74,16 +84,22 @@ heapNode MinHeap::deleteMin() {
 
 	if (heap.size() < 1) {
 
-		// ERROR ?
+		std::cout << "Heap was empty and deleteMin occurred" << endl;
+
+		return {-1, -1};
 	}
 
 	heapNode min = heap[0];
 
 	heap[0] = heap[heap.size() - 1];
 
+	vertexToPlace[heap[0].data] = 0;
+
 	heap.pop_back();  // heapSize-- 
 
 	fixHeap(0);
+
+	vertexToPlace[min.data] = NOTINHEAP;
 
 	return min;
 }
@@ -102,7 +118,12 @@ bool MinHeap::isEmpty() {
  * deceaseKey changes the weight of heap[place] to newKey and fixes the heap, if necessary.
  * ASSUMPTION: newKey <= heap[place].weight 
  */
-void MinHeap::deceaseKey(int place, int newKey) {
+void MinHeap::deceaseKey(int v, int newKey) {
+							// 1. הפעולה תקבל גם מערך VtoPlace 
+							// ותעדכן אותו לפי השינויים שהיא עושה בערימה
+							// התרגום יעשה ב prim
+							// והערימה תקבל ישר את place
+	int place = vertexToPlace[v];
 
 	if (place >= heap.size()) {
 
@@ -121,11 +142,15 @@ void MinHeap::deceaseKey(int place, int newKey) {
 		// Fix Upwards:
 		
 		heap[place] = heap[getParent(place)];
+		vertexToPlace[heap[getParent(place)].data] = place;
+
 		place = getParent(place);
 	}
 
 	heap[place] = temp;
 	heap[place].weight = newKey;
+
+	vertexToPlace[heap[place].data] = place;
 }
 
 /*********************************************************************/

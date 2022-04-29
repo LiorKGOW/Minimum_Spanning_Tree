@@ -62,6 +62,7 @@ List *Graph::GetAdjList(int vertex)
 /*********************************************************************/
 /*
  * AddEdge Adds the edge (ver1, ver2) to the graph.
+ * In this function we get the vertices in terms of 1 - n
  */
 void Graph::AddEdge(int ver1, int ver2, int weight)
 {
