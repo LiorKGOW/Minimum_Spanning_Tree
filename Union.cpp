@@ -32,7 +32,6 @@ int Union::Find(int vertex)
 	// Stop Condition
 	if (arr[vertex].parent == vertex)
 	{
-
 		return vertex;
 	}
 
@@ -51,14 +50,11 @@ int Union::Find(int vertex)
  */
 void Union::UnionVertices(int ver1, int ver2)
 {
-	if (ver1 <= 0 || ver2 <= 0 || ver1 > size || ver2 > size)
+	if (ver1 < 0 || ver2 < 0 || ver1 >= size || ver2 >= size)
 	{
 		cout << "error using vertices that don't exist" << endl;
 		return;
 	}
-
-	ver1--;
-	ver2--;
 
 	if (ver1 == ver2)
 		return;

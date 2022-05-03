@@ -17,24 +17,24 @@ Graph::Graph(int n)
 	}
 
 	this->colorsIsWhite = true;
+	this->edgesIsSorted = false;
 }
 
 /*********************************************************************/
 // Destructor
-Graph::~Graph()
-{
-	for (int i = 0; i < this->Num_of_Vertices; i++)
-	{
+Graph::~Graph() {
+
+	for (int i = 0; i < this->Num_of_Vertices; i++) {
 
 		delete adjList[i];
 	}
 }
 
 /*********************************************************************/
-void Graph::MakeEmptyGraph(int n)
-{
-	for (int i = 0; i < n; i++)
-	{
+void Graph::MakeEmptyGraph(int n) {
+
+	for (int i = 0; i < n; i++) {
+
 		this->adjList.push_back(new List());
 	}
 }
@@ -43,8 +43,8 @@ void Graph::MakeEmptyGraph(int n)
 /*
  * Checks if the edge (ver1, ver2) is in the graph.
  */
-bool Graph::IsAdjacent(int ver1, int ver2)
-{
+bool Graph::IsAdjacent(int ver1, int ver2) {
+
 	return adjList[ver1 - 1]->isInList(ver2 - 1);
 }
 
@@ -52,8 +52,8 @@ bool Graph::IsAdjacent(int ver1, int ver2)
 /*
  * GetAdjList returns a *duplication* of the adjList of vertex.
  */
-List *Graph::GetAdjList(int vertex)
-{
+List *Graph::GetAdjList(int vertex) {
+
 	List *result = adjList[vertex - 1]->duplicateList();
 
 	return result;
@@ -70,7 +70,7 @@ void Graph::AddEdge(int ver1, int ver2, int weight)
 	{
 		adjList[ver1 - 1]->insertToTail(ver2 - 1, weight);
 
-		weightedEdge e = { ver1, ver2, weight };
+		weightedEdge e = { ver1 - 1, ver2 - 1, weight };
 
 		edges.push_back(e);
 
@@ -78,6 +78,7 @@ void Graph::AddEdge(int ver1, int ver2, int weight)
 	}
 
 	// else, the edge is already in the graph -> do nothing.
+	// TODO: invalid input for adding an adjacent edge.
 }
 
 /*********************************************************************/
@@ -111,15 +112,20 @@ void Graph::RemoveEdge(int ver1, int ver2)
 	else
 	{
 		adjList[ver1 - 1]->removeFromList(ver2 - 1);
-		adjList[ver2 - 1]->removeFromList(ver1 - 1);
+		adjList[ver2 - 1]->removeFromList(ver1 - 1);  // remove the inverted edge
 
 		// remove from edges:
 
 		for (int i = 0; i < edges.size(); i++) {
 
-			if ((edges[i].ver1 == ver1 && edges[i].ver2 == ver2) || (edges[i].ver1 == ver2 && edges[i].ver2 == ver1)) {
+			if ((edges[i].ver1 == ver1 - 1 && edges[i].ver2 == ver2 - 1) || (edges[i].ver1 == ver2 - 1 && edges[i].ver2 == ver1 - 1)) {
 
-				std::swap(edges[i], edges[edges.size() - 1]);
+				// bring edges[i] to the end of edges and then pop it (to keep edges sorted)
+
+				for (int j = i; j < edges.size() - 1; j++) {
+
+					std::swap(edges[j], edges[j + 1]);
+				}
 
 				edges.pop_back();
 
@@ -222,14 +228,84 @@ void Graph::printGraph()
 //	Getters:
 /*********************************************************************/
 
-int Graph::get_Num_of_Vertices()
-{
+int Graph::get_Num_of_Vertices() {
+
 	return this->Num_of_Vertices;
 }
 
 int Graph::get_Num_of_Edges() {
 
 	return this->edges.size();
+}
+
+bool Graph::get_edgesIsSorted() {
+
+	return this->edgesIsSorted;
+}
+
+int Graph::get_edgesSize() {
+
+	return this->edges.size();
+}
+
+/*********************************************************************/
+//	Setters:
+/*********************************************************************/
+
+void Graph::set_edgesIsSorted(bool newVal) {
+
+	this->edgesIsSorted = newVal;
+}
+
+/*********************************************************************/
+
+/*********************************************************************/
+// edges[i] = {vec1, vec2, weight}
+void Graph::QuickSort(int begin, int end)
+{
+	// Sort Edges By weight
+
+	int pivot;
+
+	if (begin < end)
+	{
+		pivot = Partition(begin, end);
+
+		QuickSort(begin, pivot - 1);
+		QuickSort(pivot + 1, end);
+	}
+}
+
+/*********************************************************************/
+int Graph::Partition(int begin, int end)
+{
+	// By weight
+
+	weightedEdge pivotEdge = edges[end];
+
+	int indP = begin; // Index of smaller element and indicates the right position of pivot found so far
+
+	for (int j = begin; j <= end - 1; j++)  // check from begin to end - 1 (end is pivot)
+	{
+		// If current element is smaller than the pivot
+		if (edges[j].weight < pivotEdge.weight)
+		{
+			swap(edges[indP], edges[j]);
+			indP++; // increment index of position of Pivot in the vector
+		}
+	}
+
+	swap(edges[indP], edges[end]);
+	return indP;
+}
+
+/*********************************************************************/
+
+void Graph::swap(weightedEdge& edge1, weightedEdge& edge2)
+{
+	weightedEdge t = edge1;
+	edge1 = edge2;
+	edge2 = t;
 }
 
 /*********************************************************************/

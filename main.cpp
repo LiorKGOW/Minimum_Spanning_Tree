@@ -12,6 +12,13 @@
 
 void testing();
 
+void checkLegalLine_NumOfVertices(ifstream& input, ofstream& outFile, string line);
+void checkLegalLine_NumOfEdges(ifstream& input, ofstream& outFile, string line, Graph*& g);
+
+void checkLegalLine_LegalWeightedEdge(ifstream& input, ofstream& outFile, string line, Graph*& g);  // for loop
+
+void checkLegalLine_LegalRemovedEdge(ifstream& input, ofstream& outFile, string line, Graph*& g1, Graph*& g2, Graph*& g3);  // for removed edge
+
 // argv = [ { name_of_program } , { Input File } , { Output File } ]
 
 void main(int argc, char* argv[]) {
@@ -19,6 +26,9 @@ void main(int argc, char* argv[]) {
 	Graph* graph = nullptr;
 	int num_of_vertices = 0;
 	int num_of_edges = 0;
+
+	Graph* kruskal_res = nullptr;
+	Graph* prim_res = nullptr;
 
 	ifstream input(argv[1]);
 	ofstream outFile(argv[2]);
@@ -31,6 +41,7 @@ void main(int argc, char* argv[]) {
 	// TODO: invalid input? => what error to print? 
 	// TODO: if we have an invalid input, do we print invalid input to the output file? to the screen?
 	// TODO: fix un used structs
+	// TODO: check the line function (invalid character inserted)
 
 	// getline(EOF) => return value is "" for line. 
 	// getline("") => default casting to bool: false.
@@ -38,12 +49,31 @@ void main(int argc, char* argv[]) {
 	if (!getline(input, line))  
 	{
 		cout << "empty file. invalid input" << endl;
+		outFile << "empty file. invalid input" << endl;
 
 		input.close();
 		outFile.close();
 
 		exit(1);
 	}
+
+	// Func: ////////////////////
+
+	for (int i = 0; i < line.size(); i++) {
+
+		if (!(line[i] == ' ' || (line[i] >= '0' && line[i] <= '9'))) {
+
+			cout << "invalid character inserted: " << line[i] << ". invalid input" << endl;
+			outFile << "invalid character inserted: " << line[i] << ". invalid input" << endl;
+
+			input.close();
+			outFile.close();
+
+			exit(1);
+		}
+	}
+
+	///////////////////
 
 	//TODO: check if number and not char/double/anything
 
@@ -52,6 +82,7 @@ void main(int argc, char* argv[]) {
 	if (num_of_vertices <= 0) {
 
 		cout << "number of vertices in a graph can't be a non-positive number. invalid input" << endl;
+		outFile << "number of vertices in a graph can't be a non-positive number. invalid input" << endl;
 
 		input.close();
 		outFile.close();
@@ -64,6 +95,7 @@ void main(int argc, char* argv[]) {
 	if (!getline(input, line))//no edge number
 	{
 		cout << "empty line. invalid input" << endl;
+		outFile << "empty line. invalid input" << endl;
 		delete graph;
 
 		input.close();
@@ -79,6 +111,7 @@ void main(int argc, char* argv[]) {
 	if (num_of_edges < 0) {//negative number of edges
 
 		cout << "number of edges in a graph can't be a negative number. invalid input" << endl;
+		outFile << "number of edges in a graph can't be a negative number. invalid input" << endl;
 		delete graph;
 
 		input.close();
@@ -92,6 +125,7 @@ void main(int argc, char* argv[]) {
 		if (!getline(input, line))  //file ended before real number of edges
 		{
 			cout << "empty line. invalid input" << endl;
+			outFile << "empty line. invalid input" << endl;
 			delete graph;
 
 			input.close();
@@ -111,6 +145,7 @@ void main(int argc, char* argv[]) {
 			// TODO: if values are not int, or we have more or less then 3 ints => use check?
 
 			cout << "wrong input format. invalid input" << endl;
+			outFile << "wrong input format. invalid input" << endl;
 			delete graph;
 
 			input.close();
@@ -123,6 +158,7 @@ void main(int argc, char* argv[]) {
 		if (!(ver1 >= 1 && ver1 <= num_of_vertices && ver2 >= 1 && ver2 <= num_of_vertices && ver1 != ver2)) {
 
 			cout << "invalid edge. invalid input" << endl;
+			outFile << "invalid edge. invalid input" << endl;
 			delete graph;
 
 			input.close();
@@ -135,50 +171,14 @@ void main(int argc, char* argv[]) {
 	}
 
 	/************************************************/
-	// Algorithm Calls:
-
-	// graph->printGraph();  // check the given graph from the input
-
-	int totalWeight_kruskal, totalWeight_prim;
-
-	Graph* kruskal_res = Kruskal(graph, totalWeight_kruskal);
-
-	if (kruskal_res == nullptr) {
-
-		// string Errormsg;
-
-		outFile << "ERROR! The graph is not connected" << endl;
-
-		delete graph;
-
-		input.close();
-		outFile.close();
-
-		exit(1);
-	}
-
-	kruskal_res->printGraph();
-	cout << "\n\nKruskal " << totalWeight_kruskal << "\n\n" << endl;
-	outFile << "Kruskal " << totalWeight_kruskal << endl;
-
-	// If we arrived to the above line, the graph was connected (we checked at Kruskal) so no need to add an additional if(graph == NULL)
-
-	Graph* prim_res = Prim(graph, totalWeight_prim);
-
-	prim_res->printGraph();
-	cout << "\n\nPrim " << totalWeight_prim << "\n\n" << endl;
-	outFile << "Prim " << totalWeight_prim << endl;
-
-	/************************************************/
 	// input of an edge to remove from graph:
 
 	if (!getline(input, line))//edge to remove from graph doesnt exist
 	{
 		cout << "empty line. invalid input" << endl;
+		outFile << "empty line. invalid input" << endl;
 
 		delete graph;
-		delete kruskal_res;
-		delete prim_res;
 
 		input.close();
 		outFile.close();
@@ -197,10 +197,9 @@ void main(int argc, char* argv[]) {
 		// TODO: if values are not int, or we have more or less then 3 ints => use check?
 
 		cout << "wrong input format. invalid input" << endl;
+		outFile << "wrong input format. invalid input" << endl;
 
 		delete graph;
-		delete kruskal_res;
-		delete prim_res;
 
 		input.close();
 		outFile.close();
@@ -212,10 +211,9 @@ void main(int argc, char* argv[]) {
 	if (!(ver1 >= 1 && ver1 <= num_of_vertices && ver2 >= 1 && ver2 <= num_of_vertices && ver1 != ver2)) {
 
 		cout << "invalid edge. invalid input" << endl;
+		outFile << "invalid edge. invalid input" << endl;
 
 		delete graph;
-		delete kruskal_res;
-		delete prim_res;
 
 		input.close();
 		outFile.close();
@@ -227,10 +225,9 @@ void main(int argc, char* argv[]) {
 	if (!(graph->IsAdjacent(ver1, ver2))) {
 
 		cout << "Edge (" << ver1 << ", " << ver2 << ") wasn't in graph. invalid input" << endl;
+		outFile << "Edge (" << ver1 << ", " << ver2 << ") wasn't in graph. invalid input" << endl;
 
 		delete graph;
-		delete kruskal_res;
-		delete prim_res;
 
 		input.close();
 		outFile.close();
@@ -238,9 +235,72 @@ void main(int argc, char* argv[]) {
 		exit(1);
 	}
 
+	///********************************************************
+	cout << "Graph: " << endl;
+	graph->printGraph();
+	cout << "\n\n";
+
+	///********************************************************
+
+	/************************************************/
+	// Algorithm Calls:
+
+	// graph->printGraph();  // check the given graph from the input
+
+	int totalWeight_kruskal, totalWeight_prim;
+
+	kruskal_res = Kruskal(graph, totalWeight_kruskal);
+
+	if (kruskal_res == nullptr) {
+
+		// string Errormsg;
+
+		cout << "ERROR! The graph is not connected" << endl;
+		outFile << "ERROR! The graph is not connected" << endl;
+
+		delete graph;
+
+		input.close();
+		outFile.close();
+
+		exit(1);
+	}
+
+	///********************************************************
+	cout << "1st Kruskal: " << endl;
+
+	// kruskal_res = Kruskal(graph, totalWeight_kruskal);
+	// kruskal_res->printGraph();
+	// cout << "\n\nKruskal " << totalWeight_kruskal << "\n\n" << endl;
+
+	///********************************************************
+	
+	kruskal_res->printGraph();
+	cout << "\n\nKruskal " << totalWeight_kruskal << "\n\n" << endl;
+	outFile << "Kruskal " << totalWeight_kruskal << endl;
+
+	// If we arrived to the above line, the graph was connected (we checked at Kruskal) so no need to add an additional if(graph == NULL)
+
+	prim_res = Prim(graph, totalWeight_prim);
+
+	///********************************************************
+	cout << "1st Prim: " << endl;
+
+	// prim_res->printGraph();
+	// cout << "\n\nPrim " << totalWeight_prim << "\n\n" << endl;
+
+	// cout << "2nd Prim: " << endl;
+
+	///********************************************************
+
+	prim_res->printGraph();
+	cout << "\n\nPrim " << totalWeight_prim << "\n\n" << endl;
+	outFile << "Prim " << totalWeight_prim << endl;
+
 	if (!(kruskal_res->IsAdjacent(ver1, ver2)))
 	{
 		cout << "Removed edge (" << ver1 << ", " << ver2 << ") wasn't in Kruskal's MST" << endl;
+		outFile << "Removed edge (" << ver1 << ", " << ver2 << ") wasn't in Kruskal's MST" << endl;
 	}
 
 	else
@@ -252,7 +312,7 @@ void main(int argc, char* argv[]) {
 		if (!(graph->isConnectedGraph()))
 		{
 			cout << "No MST. Graph is not connected. Removed edge (" << ver1 << ", " << ver2 << ") was a bridge" << endl;
-			// TODO: need to write this comment to file?
+			outFile << "No MST. Graph is not connected. Removed edge (" << ver1 << ", " << ver2 << ") was a bridge" << endl;
 		}
 
 		else
@@ -265,6 +325,12 @@ void main(int argc, char* argv[]) {
 
 			// kruskal_res is not nullptr, because we checked this case. no need to verify it.
 
+			///********************************************************
+			cout << "2nd Kruskal: " << endl;
+
+			///********************************************************
+
+
 			kruskal_res->printGraph();
 			cout << "\n\n" << "Kruskal after removing " << totalWeight_kruskal << endl;
 			outFile << "Kruskal after removing " << totalWeight_kruskal << endl;
@@ -274,6 +340,7 @@ void main(int argc, char* argv[]) {
 	if (getline(input, line))
 	{
 		cout << "not an empty line, though the input should have ended. invalid input" << endl;
+		outFile << "not an empty line, though the input should have ended. invalid input" << endl;
 
 		delete graph;
 		delete kruskal_res;

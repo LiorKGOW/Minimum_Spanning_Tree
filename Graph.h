@@ -24,10 +24,11 @@ private:
 	vector<int> colors; // in use in DFS functions
 	bool colorsIsWhite;
 
-	vector<weightedEdge> edges;   // The vector contains weighted edges with vertices logic of (1 - n)
+	vector<weightedEdge> edges;   // The vector contains weighted edges with vertices logic of (0 - n-1)  // was (1 - n)
 	// logSize == edges.size() == Num_of_Edges
 
-	// bool edgesIsSorted;
+	bool edgesIsSorted;  // Used in Kruskal's Algorithm, when we call the Algorithm again, we do not need to sort the edges again
+						 // So we'll check this variable, and if it is true, we won't call Quick Sort again.
 
 public:
 	Graph(int n); // Constructor
@@ -45,8 +46,10 @@ public:
 	void visit(int vertex);
 	bool isConnectedGraph();
 
-	// 
 	vector<weightedEdge> getWeightedEdgesVector();
+	void QuickSort(int begin, int end);
+	int Partition(int begin, int end);
+	void swap(weightedEdge& edge1, weightedEdge& edge2);
 
 	void printGraph(); // in case a vertex doesn't have edges attached to it, printGraph prints an empty line.
 
@@ -54,6 +57,10 @@ public:
 
 	int get_Num_of_Vertices();
 	int get_Num_of_Edges();
+	bool get_edgesIsSorted();
+	int get_edgesSize();
 
 	// Setters:
+
+	void set_edgesIsSorted(bool newVal = true);
 };
