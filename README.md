@@ -9,10 +9,10 @@ The output would be printed to both the screen and the second file that was give
 
 _Input Format:_
 
-{Num_Of_Vertices}
-{Num_Of_Edges}
-{ver1} {ver2} {ver3} X Num_Of_Edges times
-{ver1} {ver2}
+Num_Of_Vertices
+Num_Of_Edges
+ver1 ver2 ver3 X Num_Of_Edges times
+ver1 ver2
 
 - I'll include a few input files in the code as examples.
 
