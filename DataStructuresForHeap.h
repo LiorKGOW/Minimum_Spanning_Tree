@@ -1,5 +1,4 @@
 #pragma once
-#include "Weighted_Edge.h"
 
 // { Data, Key }
 // { edge, weight }

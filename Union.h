@@ -7,8 +7,7 @@
 
 using namespace std;
 
-typedef struct treeNode
-{
+typedef struct treeNode {
 
 	int vertex;
 	int parent;
@@ -20,6 +19,7 @@ class Union
 {
 	// With Path Compression & Union By Size.
 	// Implementation using tree structure and vector.
+	// in terms of (0 - n-1)
 
 private:
 	vector<treeNode> arr;
@@ -28,13 +28,13 @@ private:
 public:
 	Union(int n); // Ctor
 
-	void MakeSet(int vertex);
-	int Find(int vertex);
-	void UnionVertices(int ver1, int ver2);
+	void MakeSet(int vertex);                 // getting the vertices in terms of 0 - n-1
+	int Find(int vertex);                     // getting the vertices in terms of 0 - n-1
+	void UnionVertices(int ver1, int ver2);   // getting the vertices in terms of 0 - n-1
 
 	// Getters:
 
-	int getSize(int vertex);
+	int getSize(int vertex);                  // getting the vertices in terms of 0 - n-1
 
 	// Setters:
 
