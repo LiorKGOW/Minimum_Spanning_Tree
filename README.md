@@ -11,7 +11,7 @@ _Input Format:_
 
 Num_Of_Vertices
 Num_Of_Edges
-ver1 ver2 ver3 X Num_Of_Edges times
+ver1 ver2 weight (X Num_Of_Edges times)
 ver1 ver2
 
 - I'll include a few input files in the code as examples.
@@ -27,4 +27,4 @@ _Algorithms Used:_
 
 - Prim's Algorithm
 - Kruskal's Algorithm
-- Quick Sort (for Prim's Algorithm)
+- QuickSort (for Prim's Algorithm)
