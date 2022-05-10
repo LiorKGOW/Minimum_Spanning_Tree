@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// Consts for the DFS functions:
+// Consts for the DFS function Visit:
 
 #define WHITE 0
 #define GRAY 1
@@ -15,13 +15,12 @@ using namespace std;
 class Graph
 {
 	// The vertexes are 0 - n-1, we will treat them as 1 - n
-	// in case a vertex doesn't have edges attached to it, printGraph prints an empty line.
 
 private:
 	vector<List *> adjList;
 	int Num_of_Vertices;
 
-	vector<int> colors; // in use in DFS functions
+	vector<int> colors; // in use in DFS function Visit
 	bool colorsIsWhite;
 
 	vector<weightedEdge> edges;   // The vector contains weighted edges with vertices logic of (0 - n-1)  // was (1 - n)
@@ -31,8 +30,8 @@ private:
 						 // So we'll check this variable, and if it is true, we won't call Quick Sort again.
 
 public:
-	Graph(int n); // Constructor
-	~Graph();	  // Destructor
+	Graph(int n); 
+	~Graph();	 
 
 	void MakeEmptyGraph(int n);
 	bool IsAdjacent(int ver1, int ver2);
@@ -51,7 +50,9 @@ public:
 	int Partition(int begin, int end);
 	void swap(weightedEdge& edge1, weightedEdge& edge2);
 
-	void printGraph(); // in case a vertex doesn't have edges attached to it, printGraph prints an empty line.
+	void printGraph();
+		// in case a vertex doesn't have edges attached to it, printGraph prints an empty line.
+
 
 	// Getters:
 

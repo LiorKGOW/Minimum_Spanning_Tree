@@ -1,7 +1,5 @@
 #include "Graph.h"
 
-/*********************************************************************/
-// Constructor
 Graph::Graph(int n)
 {
 	this->adjList.reserve(n);
@@ -21,7 +19,6 @@ Graph::Graph(int n)
 }
 
 /*********************************************************************/
-// Destructor
 Graph::~Graph() {
 
 	for (int i = 0; i < this->Num_of_Vertices; i++) {
@@ -138,21 +135,6 @@ void Graph::RemoveEdge(int ver1, int ver2)
 	}
 }
 
-///*********************************************************************/
-// void Graph::DFS()
-//{
-//	if (!this->colorsIsWhite)
-//		makeColorsWhite();
-//
-//	for (int i = 0; i < Num_of_Vertices; i++)
-//	{
-//		if (colors[i] == WHITE)
-//			visit(i);
-//	}
-//
-//	this->colorsIsWhite = false;
-// }
-
 /*********************************************************************/
 void Graph::makeColorsWhite()
 {
@@ -165,7 +147,6 @@ void Graph::makeColorsWhite()
 }
 
 /*********************************************************************/
-
 void Graph::visit(int vertex)
 {
 	colors[vertex] = GRAY;
@@ -206,7 +187,6 @@ bool Graph::isConnectedGraph()
 }
 
 /*********************************************************************/
-
 vector<weightedEdge> Graph::getWeightedEdgesVector() {
 
 	// IMPORTANT: NO DUP EDGES!!
@@ -261,9 +241,10 @@ void Graph::set_edgesIsSorted(bool newVal) {
 }
 
 /*********************************************************************/
-
-/*********************************************************************/
-// edges[i] = {vec1, vec2, weight}
+/*
+* This funciton Sorts the edges vector according to the Quick Sort Algorithm, By weight
+* edges[i] = {vec1, vec2, weight}
+*/
 void Graph::QuickSort(int begin, int end)
 {
 	// Sort Edges By weight
@@ -303,7 +284,6 @@ int Graph::Partition(int begin, int end)
 }
 
 /*********************************************************************/
-
 void Graph::swap(weightedEdge& edge1, weightedEdge& edge2)
 {
 	weightedEdge t = edge1;

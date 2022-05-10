@@ -28,8 +28,6 @@ public:
 
 	Node *getHead();
 	Node *getTail();
-
-	void printList();
   
   // Setters:
 };
