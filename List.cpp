@@ -2,14 +2,12 @@
 #include <iostream>
 
 /*********************************************************************/
-
 List::List()
 {
 	makeEmptyList();
 }
 
 /*********************************************************************/
-
 List::~List()
 {
 	Node *curr = this->head;
@@ -23,7 +21,6 @@ List::~List()
 }
 
 /*********************************************************************/
-
 void List::makeEmptyList()
 {
 
@@ -31,7 +28,6 @@ void List::makeEmptyList()
 }
 
 /*********************************************************************/
-
 bool List::isEmpty()
 {
 	if (this->head == nullptr)
@@ -43,7 +39,6 @@ bool List::isEmpty()
 }
 
 /*********************************************************************/
-
 void List::insertToHead(int vertex, int weight)
 {
 	Node *newHead = new Node(vertex, weight);
@@ -63,7 +58,6 @@ void List::insertToHead(int vertex, int weight)
 }
 
 /*********************************************************************/
-
 void List::insertToTail(int vertex, int weight)
 {
 
@@ -85,7 +79,7 @@ void List::insertToTail(int vertex, int weight)
 
 /*********************************************************************/
 /*
- * Assumption: val is a vertex in list
+ * ASSUMPTION: val is a vertex in list
  */
 void List::removeFromList(int val)
 {
@@ -98,7 +92,7 @@ void List::removeFromList(int val)
 
 			this->head = this->tail = nullptr;
 		}
-		else // more then one Node in the List
+		else   // more then one Node in the List
 		{
 			Node *newHead = head->next;
 
@@ -137,7 +131,6 @@ void List::removeFromList(int val)
 }
 
 /*********************************************************************/
-
 bool List::isInList(int vertex)
 {
 	Node *curr = this->head;
@@ -158,7 +151,6 @@ bool List::isInList(int vertex)
 }
 
 /*********************************************************************/
-
 void List::printList(int graphVertex)
 {
 	Node *curr = this->head;
@@ -172,7 +164,6 @@ void List::printList(int graphVertex)
 }
 
 /*********************************************************************/
-
 void List::printListBack()
 {
 	Node *curr = this->tail;
@@ -186,7 +177,6 @@ void List::printListBack()
 }
 
 /*********************************************************************/
-
 List *List::duplicateList()
 {
 	List *duplicate = new List();
@@ -203,6 +193,7 @@ List *List::duplicateList()
 
 /*********************************************************************/
 // Getters:
+/*********************************************************************/
 
 Node *List::getHead()
 {

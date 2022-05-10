@@ -7,8 +7,7 @@ MinHeap::MinHeap(vector<int> min) {
 }
 
 /*********************************************************************/
-/*
- * In this bulild function we will use Floyd Algorithm to build the Heap
+/* In this bulild function we will use Floyd Algorithm to build the Heap
  */
 void MinHeap::build(vector<int> min) {
 
@@ -31,8 +30,7 @@ void MinHeap::build(vector<int> min) {
 }
 
 /*********************************************************************/
-/*
- * fixHeap is a Recursive function
+/* fixHeap is a Recursive function
  */
 void MinHeap::fixHeap(int index) {
 
@@ -114,25 +112,22 @@ bool MinHeap::isEmpty() {
 }
 
 /*********************************************************************/
-/*
- * deceaseKey changes the weight of heap[place] to newKey and fixes the heap, if necessary.
+/* deceaseKey changes the weight of heap[place] to newKey and fixes the heap, if necessary.
  * ASSUMPTION: newKey <= heap[place].weight 
  */
 void MinHeap::deceaseKey(int v, int newKey) {
-							// 1. הפעולה תקבל גם מערך VtoPlace 
-							// ותעדכן אותו לפי השינויים שהיא עושה בערימה
-							// התרגום יעשה ב prim
-							// והערימה תקבל ישר את place
+
 	int place = vertexToPlace[v];
 
 	if (place >= heap.size()) {
 
-		// TODO: ERROR place is out of bounds of the heap.
+		// ASSUMPTION: vertexToPlace is updated and doesn't conatain a value that is not in the heap range
 	}
 
 	if (newKey > heap[place].weight) {
 
-		// TODO: ERROR trying to decrease to a greater value
+		// During Prim's Algorithm we call this function, with each time with a new key that is lower than the value before.
+		// Therefore we won't enter this case.
 	}
 
 	heapNode temp = heap[place];
@@ -154,7 +149,6 @@ void MinHeap::deceaseKey(int v, int newKey) {
 }
 
 /*********************************************************************/
-
 bool MinHeap::leftChildExists(int index) {
 
 	return (getLeftChild(index) < heap.size());
@@ -185,8 +179,7 @@ int MinHeap::getRightChild(int index) {
 }
 
 /*********************************************************************/
-/*
- * ASSUMPION: The heap is not Empty
+/* ASSUMPION: The heap is not Empty
  */
 heapNode MinHeap::getMin() const {
 

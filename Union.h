@@ -26,7 +26,7 @@ private:
 	int size;
 
 public:
-	Union(int n); // Ctor
+	Union(int n); 
 
 	void MakeSet(int vertex);                 // getting the vertices in terms of 0 - n-1
 	int Find(int vertex);                     // getting the vertices in terms of 0 - n-1

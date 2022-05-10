@@ -1,5 +1,5 @@
 #pragma once
-#include "DataStructuresForHeap.h"
+#include "heapNode.h"
 #include <vector>
 #include <math.h>
 #include <iostream>
@@ -9,12 +9,7 @@
 
 using namespace std;
 
-// graphEdge    = {int ver1, int ver2}
-// heapNode     = {graphEdge data, int weight}
-
-class MinHeap
-{
-	// להכניס רק רשת אחת מהגרף (את הקשת הנגדית לא להכניס)
+class MinHeap {
 	
 private:
 	
@@ -25,7 +20,7 @@ private:
 
 public:
 
-	MinHeap(vector<int> min);  	// נקבל ב ctor את גודל המערך
+	MinHeap(vector<int> min);  
 
 	void build(vector<int> min);
 	void fixHeap(int index);

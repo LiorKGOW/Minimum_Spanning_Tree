@@ -9,7 +9,6 @@ Graph *Kruskal(Graph *g, int &totalWeight, string& line)
 		line = "No MST, The graph is not connected \n";
 
 		return nullptr;
-		// TODO: Print Error? Unconnected Graph
 	}
 
 	Graph *result = new Graph(g->get_Num_of_Vertices()); // of edges
@@ -23,14 +22,11 @@ Graph *Kruskal(Graph *g, int &totalWeight, string& line)
 	vector<weightedEdge> vecEdge = g->getWeightedEdgesVector(); // Items: 0 - n-1
 
 	Union Vertices(g->get_Num_of_Vertices());
-	// Graph* result, Add(u,v) to the Graph -> AddEdge(u,v)
 
 	int numOfEdges = 0;
 	// if result has n-1 edges, We can stop the loop (We have found the tree).
 
 	for (int i = 0; i < vecEdge.size() && numOfEdges < (g->get_Num_of_Vertices() - 1) ; i++) {
-
-		// vecEdge[i] // (u,v)   vecEdge talk in terms of (0 - n-1)
 
 		int vec1Rep = Vertices.Find(vecEdge[i].ver1);
 		int vec2Rep = Vertices.Find(vecEdge[i].ver2);
@@ -54,7 +50,6 @@ Graph *Kruskal(Graph *g, int &totalWeight, string& line)
  */
 bool isInVec(vector<weightedEdge> &vecEdge, weightedEdge e)
 {
-
 	bool check = false;
 
 	for (int i = 0; i < vecEdge.size() && !check; i++)
