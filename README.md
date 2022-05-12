@@ -22,6 +22,7 @@ _Data Structures Used:_
 - Graph
 - Union-Find (Disjoint Set)
 - Priority Queue (Min Heap)
+- Linked List
 
 _Algorithms Used:_
 
