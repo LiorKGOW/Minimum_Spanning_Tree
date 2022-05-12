@@ -28,4 +28,5 @@ _Algorithms Used:_
 
 - Prim's Algorithm
 - Kruskal's Algorithm
+- Floyd Algorithm for building the Priority Queue
 - QuickSort (for Prim's Algorithm)
