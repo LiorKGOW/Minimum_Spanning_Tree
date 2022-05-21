@@ -27,5 +27,6 @@ _Algorithms Used:_
 
 - Prim's Algorithm
 - Kruskal's Algorithm
+- Floyd's Algorithm for creating the PQ
 - QuickSort (for Kruskal's Algorithm)
 - Visit (From DFS Algorithm)
